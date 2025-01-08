@@ -10,7 +10,7 @@ export default {
         sans: ['"Big Shoulders Text"', 'sans-serif'],
       },
       colors: {
-        base:'#D1A2FF',
+        'base-light':'#D1A2FF',
         'base-dark': '#372846',
         dark: '#242424'
       },

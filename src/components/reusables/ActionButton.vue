@@ -24,9 +24,9 @@
             case 'light':
                 return 'bg-white text-dark';
             case 'primary':
-                return 'bg-base text-dark';
+                return 'bg-base-light text-dark';
             case 'semi-transparent':
-                return 'bg-base text-white bg-opacity-50 border-gray-200';
+                return 'bg-dark text-white bg-opacity-50 border border-gray-200 hover:bg-opacity-80 transition-colors';
             default:
                 return 'bg-dark text-white';
         }
