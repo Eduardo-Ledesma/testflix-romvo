@@ -12,7 +12,11 @@ export default {
       colors: {
         'base-light':'#D1A2FF',
         'base-dark': '#372846',
-        dark: '#242424'
+        dark: '#242424',
+        error: '#FF0000'
+      },
+      letterSpacing: {
+        'big': '4px',
       },
     },
   },

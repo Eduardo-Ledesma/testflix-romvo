@@ -3,8 +3,8 @@
       <img src="../../assets/LITEFLIX.svg" alt="testflix logo" class="h-10" />
 
       <ul class="flex items-center gap-8">
-        <li>
-          <ButtonWithIcon text="AGREGAR PELICULA" :class="'text-lg font-medium gap-6 mr-6'">
+        <li class="hidden md:flex">
+          <ButtonWithIcon @click="handleOpenModal" text="AGREGAR PELICULA" :class="'text-lg font-medium gap-6 mr-6'">
             <div class="rounded-full bg-base-light p-[3px]">
               <ArrowRightIcon class="w-4 h-4 text-base-dark" />
             </div>
@@ -12,8 +12,8 @@
         </li>
 
         <li>
-          <button class="hover:scale-110 transition-transform">
-            <MenuIcon @click="handleOpenMenu" class="w-6 h-6 text-white" />
+          <button @click="handleOpenMenu" class="hover:scale-110 transition-transform">
+            <MenuIcon class="w-6 h-6 text-white" />
           </button>
         </li>
       
@@ -38,9 +38,13 @@
     import MenuIcon from '../icons/MenuIcon.vue';
     import NotificationIcon from '../icons/NotificationIcon.vue';
 
-    const emit = defineEmits(['update:sidebar']);
+    const emit = defineEmits(['update:openSidebar', 'update:openModal']);
 
     const handleOpenMenu = () => {
-        emit('update:sidebar', true);
+        emit('update:openSidebar');
+    }
+
+    const handleOpenModal = () => {
+        emit('update:openModal');
     }
 </script>

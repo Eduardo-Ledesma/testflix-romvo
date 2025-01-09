@@ -9,8 +9,9 @@
           <ActionButton text="REPRODUCIR">
             <PlayIcon class="w-5 h-5 text-white" />
           </ActionButton>
-          <ActionButton text="MI LISTA" type="semi-transparent">
-            <PlusIcon class="w-5 h-5 text-white" />
+          <ActionButton @click="alreadyInList = !alreadyInList" text="MI LISTA" type="semi-transparent">
+            <ReadyIcon v-if="alreadyInList" class="w-5 h-5 text-white" />
+            <PlusIcon v-else class="w-5 h-5 text-white" />
           </ActionButton>
         </div>
       </div>
@@ -22,10 +23,14 @@
 </template>
 
 <script setup lang="ts">
+  import { ref } from 'vue';
   import ActionButton from '../reusables/ActionButton.vue';
   import PlayIcon from '../icons/PlayIcon.vue';
   import PlusIcon from '../icons/PlusIcon.vue';
+  import ReadyIcon from '../icons/ReadyIcon.vue';
   import GallerySection from '../gallery/GallerySection.vue';
+
+  const alreadyInList = ref(false);
 </script>
 
 <style scoped>

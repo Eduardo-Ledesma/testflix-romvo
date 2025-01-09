@@ -38,7 +38,9 @@
                             </li>
                         </ul>
 
-                        <ButtonWithIcon text="AGREGAR PELICULA" :class="'text-xl gap-8 mr-6 w-fit hover:font-semibold'" text-style="tracking-[5px]">
+                        <ButtonWithIcon @click="handleOpenModal" text="AGREGAR PELICULA" :class="'text-xl gap-8 mr-6 w-fit hover:font-semibold'" 
+                            text-style="tracking-[5px]"
+                        >
                             <div class="rounded-full bg-base-light p-[3px]">
                                 <ArrowRightIcon class="w-5 h-5 text-base-dark" />
                             </div>
@@ -82,12 +84,16 @@
         }
     );
 
-    const emit = defineEmits(['update:isActive']);
+    const emit = defineEmits(['update:closeSidebar', 'update:openModal']);
 
     const isSidebarOpen = computed(() => props.isActive);
 
     const handleCloseSidebar = () => {
-        emit('update:isActive', false);
+        emit('update:closeSidebar');
+    }
+
+    const handleOpenModal = () => {
+        emit('update:openModal');
     }
 
     const hoveredOption = ref<number | null>(null);

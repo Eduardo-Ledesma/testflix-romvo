@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center items-end gap-4 relative w-56 h-36 hover:w-[250px] hover:h-[247px] transition-all"
+    <div class="flex justify-center items-end gap-4 relative w-56 h-36 hover:w-[250px] hover:h-[247px] transition-all duration-300"
         :style="{backgroundImage: 'url(' + props.serie.img + ')'}"
         :class="['bg-contain bg-top bg-no-repeat']"
         @mouseover="serieHovered = true"
@@ -18,7 +18,7 @@
             <div class="flex justify-between">
                 <div class="flex items-center text-white gap-3 self-end">
                     <PlaySerieIcon  class="w-6 h-6 cursor-pointer" />
-                    <h3 class="text-white font-semibold text tracking-[4px]">{{ props.serie.title }}</h3>
+                    <h3 class="text-white font-semibold text tracking-big">{{ props.serie.title }}</h3>
                 </div>
 
                 <!-- Manage list and like icons -->
@@ -41,7 +41,7 @@
         <!-- Info showed when the card is not hovered -->
         <div v-else class="pb-1 flex flex-col items-center gap-4 z-20">
             <PlaySerieIcon />
-            <h3 class="text-white font-semibold text-lg tracking-[4px]">{{ props.serie.title }}</h3>
+            <h3 class="text-white font-semibold text-lg tracking-big">{{ props.serie.title }}</h3>
         </div>
     </div>
 </template>
