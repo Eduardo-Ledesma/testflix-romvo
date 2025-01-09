@@ -22,9 +22,9 @@
             case 'dark':
                 return 'bg-dark text-white hover:bg-opacity-80 transition-colors';
             case 'light':
-                return 'bg-white text-dark';
+                return 'bg-white text-dark hover:bg-opacity-80 transition-colors';
             case 'primary':
-                return 'bg-base-light text-dark';
+                return 'bg-base-light text-dark hover:bg-opacity-80 transition-colors';
             case 'semi-transparent':
                 return 'bg-dark text-white bg-opacity-50 border border-gray-200 hover:bg-opacity-80 transition-colors';
             default:

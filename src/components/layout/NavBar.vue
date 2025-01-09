@@ -38,7 +38,9 @@
     import MenuIcon from '../icons/MenuIcon.vue';
     import NotificationIcon from '../icons/NotificationIcon.vue';
 
+    const emit = defineEmits(['update:sidebar']);
+
     const handleOpenMenu = () => {
-        console.log('Menu opened');
+        emit('update:sidebar', true);
     }
 </script>

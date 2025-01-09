@@ -4,7 +4,6 @@
         :class="['bg-contain bg-top bg-no-repeat']"
         @mouseover="serieHovered = true"
         @mouseleave="serieHovered = false"
-        @click="console.log(serieHovered)"
     >
         <!-- Gradient overlay -->
         <div v-if="serieHovered" class="absolute inset-0 bg-gradient-to-b from-transparent to-dark to-70% z-10"></div>
@@ -34,7 +33,7 @@
             <p class="text-white text-xs font-light tracking-wider">{{ props.serie.description }}</p>
 
             <div class="flex justify-between items-center tracking-wider text-sm">
-                <p class="text-white"><StarIcon class="w-4 h-4 text-base-light inline-block mr-1 mb-1" />{{ props.serie.score }}</p>
+                <p class="text-white"><StarFilledIcon class="w-4 h-4 text-base-light inline-block mr-1 mb-1" />{{ props.serie.score }}</p>
                 <p class="text-white">{{ props.serie.year }}</p>
             </div>
         </div>
@@ -55,7 +54,7 @@
     import ReadyIcon from '../icons/ReadyIcon.vue';
     import LikeIcon from '../icons/LikeIcon.vue';
     import LikeFilledIcon from '../icons/LikeFilledIcon.vue';
-    import StarIcon from '../icons/StarIcon.vue';
+    import StarFilledIcon from '../icons/StarFilledIcon.vue';
 
     const props = defineProps<{
         serie: Serie;
