@@ -41,16 +41,25 @@
 
 <style scoped>
   main {
-    background: linear-gradient(to top, #242424 0%, rgba(24, 24, 24, 0.3) 15%, transparent 21%), url(/img/desktop-bg.png);
+    background-image: linear-gradient(to top, #242424 0%, rgba(24, 24, 24, 0.3) 15%, transparent 21%), url(/img/desktop-bg.webp);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center top;
+    background-position: center top, calc(50% + 20px) top;
+
+    @supports (background-image: url('/img/desktop-bg.webp')) {
+      background-image: linear-gradient(to top, #242424 0%, rgba(24, 24, 24, 0.3) 15%, transparent 21%), url(/img/desktop-bg.webp);
+    }
+    
+    @media (min-width: 600px) {
+      background-position: center top;
+    }
 
     @media (min-width: 1024px) {
-      background: url(/img/desktop-bg.png);
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center top;
+      background-image: url(/img/desktop-bg.webp);
+
+      @supports (background-image: url('/img/desktop-bg.webp')) {
+        background-image: url(/img/desktop-bg.webp);
+      }
     }
   }
 </style>

@@ -112,6 +112,9 @@
 <style scoped>
     .sidebar {
         background: url('/img/sidebar-bg.jpg') no-repeat center center;
+        @supports (background-image: url('/img/sidebar-bg.webp')) {
+            background: url('/img/sidebar-bg.webp') no-repeat center center;
+        }
     }
 
     .slide-fade-enter-active {
