@@ -2,8 +2,12 @@
     <div class="flex flex-col gap-4 justify-center items-center w-full">
         <button @click="goPrevious" class="hover:scale-110 transition-transform"><ArrowUpIcon class="text-white" /></button>
 
-        <TransitionGroup name="list" tag="ul" v-if="seriesToShow.length" class="flex flex-col items-center gap-4 w-full">
-            <SerieCard v-for="serie in seriesToShow" :serie="serie" :key="serie.id" @update:list="handleToggleInList" @update:fav="handleToggleLike"  />
+        <TransitionGroup v-if="isLG && seriesToShow.length" name="list" tag="ul" class="flex flex-col items-center gap-4 w-full">
+            <SerieCardDesktop v-for="serie in seriesToShow" :serie="serie" :key="serie.id" @update:list="handleToggleInList" @update:fav="handleToggleLike"  />
+        </TransitionGroup>
+
+        <TransitionGroup v-else-if="!isLG && seriesToShow.length" name="list" tag="ul" class="flex flex-col items-center gap-4 w-full">
+            <SerieCardMobile v-for="serie in seriesToShow" :serie="serie" :key="serie.id" @update:list="handleToggleInList" @update:fav="handleToggleLike"  />
         </TransitionGroup>
 
         <button @click="goNext" class="hover:scale-110 transition-transform"><ArrowDownIcon class="text-white" /></button>
@@ -15,7 +19,11 @@
     import ArrowUpIcon from '../icons/ArrowUpIcon.vue';
     import ArrowDownIcon from '../icons/ArrowDownIcon.vue';
     import { type Serie } from '../../utils/types';
-    import SerieCard from './SerieCard.vue';
+    import SerieCardDesktop from './SerieCardDesktop.vue';
+    import SerieCardMobile from './SerieCardMobile.vue';
+    import { useWindowSize } from '../../composables/useWindowSize';
+
+    const { isLG } = useWindowSize();
 
     const props = withDefaults(
         defineProps<{

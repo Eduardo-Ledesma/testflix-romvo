@@ -1,10 +1,10 @@
 <template>
-    <form v-if="!isSaved" class="flex flex-col justify-center items-center gap-10" @submit.prevent="handleSaveMovie">
+    <form v-if="!isSaved" class="flex flex-col justify-center items-center gap-10" @submit.prevent="$emit('update:saveMovie')">
         <h3 class="text-xl font-medium tracking-big text-base-light">AGREGAR PELÍCULA</h3>
 
         <!-- Dropzone -->
         <div v-if="showDropzone"
-            @click="handleUploadMovie"
+            @click="$emit('update:uploadMovie')"
             class="flex justify-center items-center max-w-[600px] w-full h-48 rounded-[10px] border border-gray-400 border-dashed
             text-white gap-3 hover:cursor-pointer hover:border-white transition-colors"
         >
@@ -15,14 +15,14 @@
         <div v-if="!showDropzone" class="flex justify-between">
 
             <!-- Loading text and percentage -->
-            <div class="w-28">
+            <div class="w-28 text-white tracking-big">
                 <Transition name="slide-up">
-                    <p v-if="isUploading" class="tracking-big text-white mb-1">Cargando...</p>
-                    <p v-else-if="isError" class="tracking-big text-white mb-1">No se pudo cargar la película...</p>
-                    <p v-else class="tracking-big text-white mb-1">Cargado</p>
+                    <p v-if="isUploading" class="mb-1">Cargando...</p>
+                    <p v-else-if="isError" class="mb-1">No se pudo cargar la película...</p>
+                    <p v-else class="mb-1">Cargado</p>
                 </Transition>
                 <Transition name="slide-up">
-                    <p v-if="!isError" class="tracking-big text-white text-4xl">{{ loadingPercentage }}</p>
+                    <p v-if="!isError" class="text-4xl">{{ loadingPercentage }}</p>
                 </Transition>
             </div>
             
@@ -47,7 +47,7 @@
             <Transition name="slide-up">
                 <button 
                     v-if="!isUploaded"
-                    @click.prevent="handleCancelUpload" 
+                    @click.prevent="$emit('update:cancelUpload')" 
                     class="tracking-big text-white self-end underline decoration-gray-500 w-28 text-right"
                     :class="[!isError ? 'opacity-100' : 'opacity-0']"
                 >
@@ -65,7 +65,7 @@
         <Transition name="slide-up">
             <div v-if="!isSaved" class="w-full max-w-64 flex flex-col gap-4">
                 <input
-                    v-model="movieTitle"
+                    v-model="currentMovieTitle"
                     type="text" 
                     class=" h-12 border-b border-white bg-dark text-white px-4 text-center tracking-big" 
                     placeholder="Ingresa el título"
@@ -80,12 +80,12 @@
         <img src="../../assets/LITEFLIX.svg" alt="testflix logo" class="h-8" />
         <CheckIcon class="w-44 h-44 text-base-light" />
         <p class="text-white tracking-big text-xl">“Testflix The Movie” fue correctamente subida.</p>
-        <ActionButton text="IR A HOME" type="light" @click="handleGoHome" />
+        <ActionButton text="IR A HOME" type="light" @click="$emit('update:goHome')" />
     </div>
 </template>
 
 <script setup lang="ts">
-    import { ref } from 'vue';
+    import { ref, computed } from 'vue';
     import ClipIcon from '../icons/ClipIcon.vue';
     import ActionButton from '../reusables/ActionButton.vue';
     import LoadingIcon from '../icons/LoadingIcon.vue';
@@ -93,46 +93,36 @@
     import RetryIcon from '../icons/RetryIcon.vue';
     import CheckIcon from '../icons/CheckIcon.vue';
 
-    const emit = defineEmits(['update:closeModal']);
+    const props = withDefaults(
+        defineProps<{
+            showDropzone: boolean;
+            isUploading: boolean;
+            isError: boolean;
+            isUploaded: boolean;
+            isSaved: boolean;
+            loadingPercentage: string;
+            movieTitle: string;
+        }>(), {
+            showDropzone: true,
+            isUploading: false,
+            isError: false,
+            isUploaded: false,
+            isSaved: false,
+            loadingPercentage: '50%',
+            movieTitle: 'Ingresa el título'
+        }
+    )
+
+    const emit = defineEmits(['update:uploadMovie', 'update:cancelUpload', 'update:retry', 'update:saveMovie', 'update:goHome']);
 
     const disabledBtn = ref<boolean>(true);
-    const showDropzone = ref<boolean>(true);
-    const isUploading = ref<boolean>(false);
-    const isError = ref<boolean>(false);
-    const isUploaded = ref<boolean>(false);
-    const isSaved = ref<boolean>(false);
-
-    const loadingPercentage = ref<string>('50%');
-    const movieTitle = ref<string>('Ingresa el título');
-
-    const handleUploadMovie = () => {
-        showDropzone.value = false
-        isUploading.value = true
-        movieTitle.value = 'Testflix The Movie'
-    }
-
-    const handleCancelUpload = () => {
-        isUploading.value = false
-        isError.value = true
-    }
+    const currentMovieTitle = computed<string>(() => props.movieTitle);
 
     const handleRetry = () => {
-        isError.value = false
-        loadingPercentage.value = '100%'
-        isUploaded.value = true
-        disabledBtn.value = false
+        disabledBtn.value = false;
+        emit('update:retry');
     }
 
-    const handleSaveMovie = () => {
-        isUploading.value = false
-        isUploaded.value = false
-        isSaved.value = true
-    }
-
-    const handleGoHome = () => {
-        emit('update:closeModal');
-        isSaved.value = false
-    }
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center items-end gap-4 relative w-56 h-36 hover:w-[250px] hover:h-[247px] transition-all duration-300"
+    <div class="flex justify-center items-end gap-4 relative w-56 h-36 hover:w-[250px] hover:h-[247px] transition-all duration-300 rounded"
         :style="{backgroundImage: 'url(' + props.serie.img + ')'}"
         :class="['bg-contain bg-top bg-no-repeat']"
         @mouseover="serieHovered = true"
@@ -9,7 +9,7 @@
         <div v-if="serieHovered" class="absolute inset-0 bg-gradient-to-b from-transparent to-dark to-70% z-10"></div>
 
         <!-- New season tag -->
-        <div v-if="props.serie.id === 1" class="bg-base-light pl-1 py-[1px] absolute top-2 right-0">
+        <div v-if="props.serie.id === 1" class="bg-base-light pl-1 py-[1px] absolute top-2 right-1">
             <p class="text-[10px] tracking-[3px] font-bold">NUEVA TEMPORADA</p>
         </div>
         
@@ -17,8 +17,8 @@
         <div v-if="serieHovered" class="flex flex-col gap-3 z-20 w-full px-3 pb-2">
             <div class="flex justify-between">
                 <div class="flex items-center text-white gap-3 self-end">
-                    <PlaySerieIcon  class="w-6 h-6 cursor-pointer" />
-                    <h3 class="text-white font-semibold text tracking-big">{{ props.serie.title }}</h3>
+                    <PlaySerieIcon class="w-6 h-6 cursor-pointer" />
+                    <h3 class="text-white font-semibold tracking-big">{{ props.serie.title }}</h3>
                 </div>
 
                 <!-- Manage list and like icons -->

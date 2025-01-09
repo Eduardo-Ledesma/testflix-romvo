@@ -1,6 +1,6 @@
 <template>
     <section class="flex justify-end w-full gap-4">
-        <div class="flex flex-col items-center gap-4 w-80">
+        <div class="flex flex-col items-center gap-4 w-full lg:w-80">
             <DropDown :options="DROPDOWN_OPTIONS" />
             <VerticalCarousel :series="SERIES" @update:list="handleToggleInList" @update:fav="handleToggleLike" />
         </div>

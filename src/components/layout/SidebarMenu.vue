@@ -5,7 +5,7 @@
         </Transition>
 
         <Transition name="slide-fade">
-            <aside v-if="isSidebarOpen"  class="fixed top-0 bottom-0 right-0 w-[760px] z-[100] sidebar px-14 py-6">
+            <aside v-if="isSidebarOpen"  class="fixed top-0 bottom-0 right-0 w-full md:w-[760px] z-[100] sidebar px-6 md:px-14 py-6 overflow-y-auto">
                 <div class="flex flex-col gap-10">
                     <div class="flex justify-between items-center">
                         <button class="hover:scale-110 transition-transform">
@@ -28,11 +28,11 @@
                                 <ButtonWithIcon
                                     @mouseover="hoveredOption = option.id"
                                     @mouseleave="hoveredOption = null"
-                                    :text="option.name" :class="'text-[22px] gap-8 mr-6 hover:font-semibold'" text-style="tracking-[5px]"
+                                    :text="option.name" :class="'text-lg sm:text-xl md:text-[22px] gap-4 sm:gap-6 md:gap-8 mr-6 hover:font-semibold'" text-style="tracking-[5px]"
                                 >
                                     <component 
                                         :is="hoveredOption === option.id ? option.iconFilled : option.icon" 
-                                        class="w-7 h-7 text-white"
+                                        class="w-5 sm:w-6 md:w-7 h-5 sm:h-6 md:h-7 text-white"
                                     />
                                 </ButtonWithIcon>
                             </li>
@@ -46,7 +46,7 @@
                             </div>
                         </ButtonWithIcon>
 
-                        <ActionButton text="CERRAR SESIÓN" type="primary" />
+                        <ActionButton text="CERRAR SESIÓN" type="primary" class="mx-auto sm:mx-0" />
                     </div>
                 </div>
             </aside>
@@ -124,8 +124,12 @@
 
     .slide-fade-enter-from,
     .slide-fade-leave-to {
-        transform: translateX(300px);
-        opacity: 0;
+        transform: translateX(-300px);
+        
+        @media (min-width: 768px) {
+            transform: translateX(300px);
+            opacity: 0;
+        }
     }
 
     .v-enter-active,

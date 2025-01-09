@@ -8,9 +8,9 @@
         </button>
 
         <Transition>
-            <div v-if="isActive" class="absolute right-0 mt-2 bg-dark shadow-lg rounded-md w-max py-1 px-2 z-50">
+            <div v-if="isActive" class="absolute right-0 mt-2 bg-dark shadow-lg rounded-md w-max py-1 px-2 z-50 border border-gray-400 lg:border-none">
                 <div 
-                    class="absolute -top-2 right-6 w-0 h-0 border-l-8 border-r-8 border-b-8 border-l-transparent border-r-transparent border-b-dark"
+                    class="absolute -top-2 right-6 w-0 h-0 border-l-8 border-r-8 border-b-8 border-l-transparent border-r-transparent border-b-gray-400 lg:border-b-dark"
                 ></div>
                 <ul class="py-2">
                     <li v-for="option in options" :key="option"
