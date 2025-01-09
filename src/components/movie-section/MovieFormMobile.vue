@@ -88,7 +88,7 @@
 
     <div v-if="isSaved" class="flex flex-col gap-16 py-4 mt-16 items-center justify-center">
         <CheckIcon class="w-44 h-44 text-base-light" />
-        <p class="text-white tracking-big text-xl">“Testflix The Movie” fue correctamente subida.</p>
+        <p class="text-white text-center tracking-big text-xl">“Testflix The Movie” fue correctamente subida.</p>
         <ActionButton text="IR A HOME" type="light" @click="$emit('update:goHome')" />
     </div>
 </template>
