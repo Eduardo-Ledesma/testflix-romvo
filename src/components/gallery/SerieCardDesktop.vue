@@ -17,7 +17,11 @@
         <div v-if="serieHovered" class="flex flex-col gap-3 z-20 w-full px-3 pb-2">
             <div class="flex justify-between">
                 <div class="flex items-center text-white gap-3 self-end">
-                    <PlaySerieIcon class="w-6 h-6 cursor-pointer" />
+                    <div class="flex items-center border hover:cursor-pointer border-white hover:bg-base-light hover:border-base-light 
+                        rounded-full py-2 pl-[10px] pr-[6px] play-parent transition-colors"
+                    >
+                        <PlayIcon class="w-[10px] h-[10px] play-icon transition-colors" />
+                    </div>
                     <h3 class="text-white font-semibold tracking-big">{{ props.serie.title }}</h3>
                 </div>
 
@@ -49,6 +53,7 @@
 <script setup lang="ts">
     import { ref } from 'vue';
     import PlaySerieIcon from '../icons/PlaySerieIcon.vue';
+    import PlayIcon from '../icons/PlayIcon.vue';
     import { type Serie } from '../../utils/types';
     import PlusIcon from '../icons/PlusIcon.vue';
     import ReadyIcon from '../icons/ReadyIcon.vue';
@@ -72,3 +77,10 @@
         emit('update:fav', id);
     }
 </script>
+
+<style scoped>
+    .play-parent:hover .play-icon {
+        fill: black;
+        color: black;
+    }
+</style>
