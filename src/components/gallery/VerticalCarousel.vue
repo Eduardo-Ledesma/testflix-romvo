@@ -1,6 +1,8 @@
 <template>
     <div class="flex flex-col gap-4 justify-center items-center w-full">
-        <button @click="goPrevious" class="hover:scale-110 transition-transform"><ArrowUpIcon class="text-white" /></button>
+        <button @click="goPrevious" class="hover:scale-110 transition-transform" :disabled="hideGoPreviousBtn" :class="{'opacity-0': hideGoPreviousBtn}">
+            <ArrowUpIcon class="text-white" />
+        </button>
 
         <TransitionGroup v-if="isLG && seriesToShow.length" name="list" tag="ul" class="flex flex-col items-center gap-4 w-full">
             <SerieCardDesktop v-for="serie in seriesToShow" :serie="serie" :key="serie.id" @update:list="handleToggleInList" @update:fav="handleToggleLike"  />
@@ -10,7 +12,9 @@
             <SerieCardMobile v-for="serie in seriesToShow" :serie="serie" :key="serie.id" @update:list="handleToggleInList" @update:fav="handleToggleLike"  />
         </TransitionGroup>
 
-        <button @click="goNext" class="hover:scale-110 transition-transform"><ArrowDownIcon class="text-white" /></button>
+        <button @click="goNext" class="hover:scale-110 transition-transform" :disabled="hideGoNextBtn" :class="{'opacity-0': hideGoNextBtn}">
+            <ArrowDownIcon class="text-white" />
+        </button>
     </div>
 </template>
 
@@ -43,6 +47,14 @@
             return props.series.slice(currentIndex.value, currentIndex.value + 4);
         }
         return [];
+    })
+
+    const hideGoPreviousBtn = computed(() => {
+        return currentIndex.value === 0;
+    })
+
+    const hideGoNextBtn = computed(() => {
+        return currentIndex.value + 4 >= props.series.length;
     })
 
     const goPrevious = () => {

@@ -4,7 +4,9 @@
   </header>
 
   <HeroSection />
+
   <SidebarMenu :is-active="isSidebarActive" @update:closeSidebar="isSidebarActive = false" @update:openModal="handleOpenModal" />
+  
   <ModalWrapper :is-modal-active="isModalActive" @update:closeModal="isModalActive = false">
     <MovieFormWrapper @update:closeModal="isModalActive = false" />
   </ModalWrapper>
