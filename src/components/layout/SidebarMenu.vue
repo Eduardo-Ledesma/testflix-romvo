@@ -111,6 +111,7 @@
 
 <style scoped>
     .sidebar {
+        background: #372845;
         background: url('/img/sidebar-bg.jpg') no-repeat center center;
         @supports (background-image: url('/img/sidebar-bg.webp')) {
             background: url('/img/sidebar-bg.webp') no-repeat center center;
