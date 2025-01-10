@@ -27,7 +27,7 @@
     import SerieCardMobile from './SerieCardMobile.vue';
     import { useWindowSize } from '../../composables/useWindowSize';
 
-    const { isLG } = useWindowSize();
+    const { isLG, height } = useWindowSize();
 
     const props = withDefaults(
         defineProps<{
@@ -44,6 +44,10 @@
 
     const seriesToShow = computed(() => {
         if(props.series.length) {
+            if(height.value < 800 && isLG.value) {
+                console.log(isLG)
+                return props.series.slice(currentIndex.value, currentIndex.value + 3);
+            }
             return props.series.slice(currentIndex.value, currentIndex.value + 4);
         }
         return [];
@@ -54,6 +58,9 @@
     })
 
     const hideGoNextBtn = computed(() => {
+        if(height.value < 800 && isLG.value) {
+            return currentIndex.value + 3 >= props.series.length;
+        }
         return currentIndex.value + 4 >= props.series.length;
     })
 
@@ -64,6 +71,11 @@
     }
 
     const goNext = () => {
+        if(height.value < 800 && isLG.value) {
+            if (currentIndex.value + 3 < props.series.length) {
+                currentIndex.value++;
+            }
+        }
         if (currentIndex.value + 4 < props.series.length) {
             currentIndex.value++;
         }
