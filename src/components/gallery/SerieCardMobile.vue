@@ -63,6 +63,9 @@
     import LikeIcon from '../icons/LikeIcon.vue';
     import LikeFilledIcon from '../icons/LikeFilledIcon.vue';
     import StarFilledIcon from '../icons/StarFilledIcon.vue';
+    import { useSeriesStore } from '@/stores/series';
+
+    const seriesStore = useSeriesStore();
 
     const props = defineProps<{
         serie: Serie;
@@ -70,14 +73,12 @@
 
     const serieHovered = ref<boolean>(false);
 
-    const emit = defineEmits(['update:list', 'update:fav']);
-
     const handleToggleInList = (id: number) => {
-        emit('update:list', id);
+        seriesStore.updateListOrLiked(id, 'list');
     }
 
     const handleToggleLike = (id: number) => {
-        emit('update:fav', id);
+        seriesStore.updateListOrLiked(id, 'liked');
     }
 </script>
 

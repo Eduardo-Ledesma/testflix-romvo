@@ -1,5 +1,5 @@
 <template>
-    <navbar class="w-full">
+    <nav class="w-full">
         <ul class="flex mx-auto justify-between w-full items-center">
             <li v-if="props.showCloseIcon">
                 <button @click="$emit('update:close')" class="hover:scale-110 transition-transform">
@@ -12,7 +12,7 @@
                 </button>
             </li>
 
-            <img src="../../assets/LITEFLIX.svg" alt="testflix logo" class="h-7" />
+            <img src="@/assets/LITEFLIX.svg" alt="testflix logo" class="h-7" />
 
             <li>
                 <button class="hover:scale-110 transition-transform">
@@ -20,7 +20,7 @@
                 </button>
             </li>
         </ul>
-    </navbar>
+    </nav>
 </template>
 
 <script setup lang="ts">

@@ -10,14 +10,12 @@
             <PlayIcon class="w-5 h-5 text-white" />
           </ActionButton>
 
-          <ActionButton @click="alreadyInList = !alreadyInList" text="MI LISTA" type="semi-transparent" class="hidden sm:flex">
-            <ReadyIcon v-if="alreadyInList" class="w-5 h-5 text-white" />
-            <PlusIcon v-else class="w-5 h-5 text-white" />
+          <ActionButton text="MI LISTA" type="semi-transparent" class="hidden sm:flex" @click="emit('update:openModal', 'list')">
+            <PlusIcon class="w-5 h-5 text-white" />
           </ActionButton>
 
-          <ActionButton @click="alreadyInList = !alreadyInList" text="" type="semi-transparent" class="!w-[45px] !gap-0 sm:hidden">
-            <ReadyIcon v-if="alreadyInList" class="w-5 h-5 text-white" />
-            <PlusIcon v-else class="w-5 h-5 text-white" />
+          <ActionButton text="" type="semi-transparent" class="!w-[45px] !gap-0 sm:hidden" @click="emit('update:openModal', 'list')">
+            <PlusIcon class="w-5 h-5 text-white" />
           </ActionButton>
         </div>
       </div>
@@ -29,14 +27,15 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
   import ActionButton from '../reusables/ActionButton.vue';
   import PlayIcon from '../icons/PlayIcon.vue';
   import PlusIcon from '../icons/PlusIcon.vue';
-  import ReadyIcon from '../icons/ReadyIcon.vue';
   import GallerySection from '../gallery/GallerySection.vue';
+  import { type Modal } from '@/utils/types';
 
-  const alreadyInList = ref(false);
+  const emit = defineEmits<{
+      (e: 'update:openModal', modal: Modal): void;
+  }>();
 </script>
 
 <style scoped>

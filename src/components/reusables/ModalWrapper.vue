@@ -1,11 +1,13 @@
 <template>
     <Transition name="modal-bg">
-        <div v-show="isModalActive" @keyup.esc="handleCloseModal" tabindex="0" 
+        <div v-show="isModalActive" @keyup.esc="handleCloseModal" tabindex="0" @click="closeModal" id="modalWrapper"
             class="absolute top-0 left-0 w-full h-screen flex justify-center items-center md:px-8 bg-black bg-opacity-30 z-[1000]"
         >
 
             <Transition name="modal-content">
-                    <div v-if="isModalActive" class="py-8 px-10 bg-dark max-w-[730px] relative overflow-x-hidden overflow-y-auto md:overflow-hidden w-full rounded-md h-screen md:h-auto">
+                    <div v-if="isModalActive" class="py-8 px-10 bg-dark max-w-[730px] relative overflow-x-hidden overflow-y-auto md:overflow-hidden w-full rounded-md h-screen md:h-auto"
+                        :class="props.modalHeightDesktop"
+                    >
                         <button class="hidden md:flex absolute top-4 right-4 hover:scale-110" @click="handleCloseModal">
                             <CloseIcon class="w-4 h-4 text-white" />
                         </button>
@@ -24,8 +26,10 @@
     const props = withDefaults(
         defineProps<{
             isModalActive: boolean;
+            modalHeightDesktop?: string;
         }>(), {
-            isModalActive: false
+            isModalActive: false,
+            modalHeightDesktop: '',
         })
 
     const emit = defineEmits(['update:closeModal']);
@@ -43,6 +47,15 @@
             }, 500);
         }
     })
+
+    const closeModal = (e: Event) => {
+        const target = e.target as HTMLElement;
+        if (target && target.getAttribute('id') === 'modalWrapper') {
+            handleCloseModal();
+        }
+    };
+
+
 </script>
 
 <style scoped>

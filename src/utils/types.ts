@@ -8,3 +8,6 @@ export type Serie = {
     in_list: boolean;
     in_favorite: boolean;
 }
+
+export type Modal = 'form' | 'list'
+export type ListOrLiked = 'list' | 'liked'
