@@ -5,11 +5,11 @@
         </button>
 
         <TransitionGroup v-if="isLG && seriesToShow.length" name="list" tag="ul" class="flex flex-col items-center gap-4 w-full">
-            <SerieCardDesktop v-for="serie in seriesToShow" :serie="serie" :key="serie.id" @update:list="handleToggleInList" @update:fav="handleToggleLike"  />
+            <SerieCardDesktop v-for="serie in seriesToShow" :serie="serie" :key="serie.id" />
         </TransitionGroup>
 
         <TransitionGroup v-else-if="!isLG && seriesToShow.length" name="list" tag="ul" class="flex flex-col items-center gap-4 w-full">
-            <SerieCardMobile v-for="serie in seriesToShow" :serie="serie" :key="serie.id" @update:list="handleToggleInList" @update:fav="handleToggleLike"  />
+            <SerieCardMobile v-for="serie in seriesToShow" :serie="serie" :key="serie.id" />
         </TransitionGroup>
 
         <button @click="goNext" class="hover:scale-110 transition-transform" :disabled="hideGoNextBtn" :class="{'opacity-0': hideGoNextBtn}">
@@ -37,8 +37,6 @@
             series: () => [],
         }
     );
-
-    const emit = defineEmits(['update:list', 'update:fav']);
 
     const currentIndex = ref(0);
 
@@ -79,14 +77,6 @@
         if (currentIndex.value + 4 < props.series.length) {
             currentIndex.value++;
         }
-    }
-
-    const handleToggleInList = (id: number) => {
-        emit('update:list', id);
-    }
-
-    const handleToggleLike = (id: number) => {
-        emit('update:fav', id);
     }
 </script>
 

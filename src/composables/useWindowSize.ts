@@ -4,6 +4,7 @@ export function useWindowSize() {
     const width = ref(window.innerWidth)
     const height = ref(window.innerHeight)
 
+    const isXS = computed(() => width.value < 500)
     const isMobile = computed(() => width.value < 768)
     const isMD = computed(() => width.value >= 768)
     const isLG = computed(() => width.value >= 1024)
@@ -21,5 +22,5 @@ export function useWindowSize() {
         window.removeEventListener('resize', onResize)
     })
 
-    return { isMobile, isMD, isLG, height }
+    return { isXS, isMobile, isMD, isLG, height }
 }

@@ -65,7 +65,7 @@
         <Transition name="slide-up">
             <div v-if="!isSaved" class="w-full max-w-64 flex flex-col gap-4">
                 <input
-                    v-model="currentMovieTitle"
+                    :value="props.movieTitle"
                     type="text" 
                     class=" h-12 border-b border-white bg-dark text-white px-4 text-center tracking-big" 
                     placeholder="Ingresa el título"
@@ -77,15 +77,15 @@
     </form>
 
     <div v-if="isSaved" class="flex flex-col gap-10 py-4 items-center justify-center">
-        <img src="../../assets/LITEFLIX.svg" alt="testflix logo" class="h-8" />
+        <img src="@/assets/LITEFLIX.svg" alt="testflix logo" class="h-8" />
         <CheckIcon class="w-44 h-44 text-base-light" />
-        <p class="text-white tracking-big text-xl">“Testflix The Movie” fue correctamente subida.</p>
+        <p class="text-white tracking-big text-xl">{{ props.movieTitle }} fue correctamente subida.</p>
         <ActionButton text="IR A HOME" type="light" @click="$emit('update:goHome')" />
     </div>
 </template>
 
 <script setup lang="ts">
-    import { ref, computed } from 'vue';
+    import { ref } from 'vue';
     import ClipIcon from '../icons/ClipIcon.vue';
     import ActionButton from '../reusables/ActionButton.vue';
     import LoadingIcon from '../icons/LoadingIcon.vue';
@@ -116,7 +116,6 @@
     const emit = defineEmits(['update:uploadMovie', 'update:cancelUpload', 'update:retry', 'update:saveMovie', 'update:goHome']);
 
     const disabledBtn = ref<boolean>(true);
-    const currentMovieTitle = computed<string>(() => props.movieTitle);
 
     const handleRetry = () => {
         disabledBtn.value = false;

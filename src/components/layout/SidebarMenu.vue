@@ -13,9 +13,7 @@
                         </button>
                         
                         <div class="flex items-center gap-8">
-                            <button class="hover:scale-110 transition-transform">
-                                <NotificationIcon class="w-6 h-6 text-white" />
-                            </button>
+                            <NotificationDropDown />
                             <button class="hover:scale-110 transition-transform">
                                 <img src="/img/avatar-profile.png" alt="testflix logo" class="h-9" />
                             </button>
@@ -29,6 +27,7 @@
                                     @mouseover="hoveredOption = option.id"
                                     @mouseleave="hoveredOption = null"
                                     :text="option.name" :class="'text-lg sm:text-xl md:text-[22px] gap-4 sm:gap-6 md:gap-8 mr-6 hover:font-semibold'" text-style="tracking-[5px]"
+                                    @click="handleSelectedOption(option.id)"
                                 >
                                     <component 
                                         :is="hoveredOption === option.id ? option.iconFilled : option.icon" 
@@ -38,7 +37,7 @@
                             </li>
                         </ul>
 
-                        <ButtonWithIcon @click="handleOpenModal" text="AGREGAR PELICULA" :class="'text-xl gap-8 mr-6 w-fit hover:font-semibold'" 
+                        <ButtonWithIcon @click="handleOpenModal('form')" text="AGREGAR PELICULA" :class="'text-xl gap-8 mr-6 w-fit hover:font-semibold'" 
                             text-style="tracking-[5px]"
                         >
                             <div class="rounded-full bg-base-light p-[3px]">
@@ -57,7 +56,7 @@
 <script setup lang="ts">
     import { ref, computed } from 'vue';
     import CloseIcon from '../icons/CloseIcon.vue';
-    import NotificationIcon from '../icons/NotificationIcon.vue';
+    import NotificationDropDown from './NotificationDropDown.vue';
     import ButtonWithIcon from '../reusables/ButtonWithIcon.vue';
     import ArrowRightIcon from '../icons/ArrowRightIcon.vue';
     import ActionButton from '../reusables/ActionButton.vue';
@@ -74,6 +73,7 @@
     import LikeIcon from '../icons/LikeIcon.vue';
     import LikeFilledIcon from '../icons/LikeFilledIcon.vue';
     import PlusIcon from '../icons/PlusIcon.vue';
+    import { type Modal } from '@/utils/types';
 
     const props = withDefaults(
         defineProps<{
@@ -84,7 +84,10 @@
         }
     );
 
-    const emit = defineEmits(['update:closeSidebar', 'update:openModal']);
+    const emit = defineEmits<{
+        (e: 'update:closeSidebar'): void;
+        (e: 'update:openModal', modal: Modal): void;
+    }>();
 
     const isSidebarOpen = computed(() => props.isActive);
 
@@ -92,13 +95,41 @@
         emit('update:closeSidebar');
     }
 
-    const handleOpenModal = () => {
-        emit('update:openModal');
+    const handleOpenModal = (modal: Modal) => {
+        emit('update:openModal', modal);
+    }
+
+    const handleSelectedOption = (id: number) => {
+        switch (id) {
+            case 1:
+                handleCloseSidebar()
+                // Handle Inicio
+                break;
+            case 2:
+                // Handle Series
+                break;
+            case 3:
+                // Handle Películas
+                break;
+            case 4:
+                // Handle Agregadas Recientemente
+                break;
+            case 5:
+                // Handle Tendencia
+                break;
+            case 6:
+                // Handle Mis Películas
+                break;
+            case 7:
+                // Handle Mi Lista
+                handleOpenModal('list')
+                break;
+        }
     }
 
     const hoveredOption = ref<number | null>(null);
 
-    const LIST_OPTIONS = ref([
+    const LIST_OPTIONS = [
         { id: 1, name: 'Inicio', icon: HomeIcon, iconFilled: HomeFilledIcon },
         { id: 2, name: 'Series', icon: StarIcon, iconFilled: StarFilledIcon },
         { id: 3, name: 'Películas', icon: FilmIcon, iconFilled: FilmFilledIcon },
@@ -106,7 +137,7 @@
         { id: 5, name: 'Tendencia', icon: TrendingUpIcon, iconFilled: TrendingUpFilledIcon },
         { id: 6, name: 'Mis Películas', icon: LikeIcon, iconFilled: LikeFilledIcon },
         { id: 7, name: 'Mi Lista', icon: PlusIcon, iconFilled: PlusIcon },
-    ])
+    ]
 </script>
 
 <style scoped>

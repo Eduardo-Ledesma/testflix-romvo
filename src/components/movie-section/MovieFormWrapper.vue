@@ -48,7 +48,7 @@
     const isSaved = ref<boolean>(false);
 
     const loadingPercentage = ref<string>('50%');
-    const movieTitle = ref<string>('Ingresa el título');
+    const movieTitle = ref<string>('');
 
     const handleUploadMovie = () => {
         showDropzone.value = false
